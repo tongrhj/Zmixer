@@ -1,0 +1,54 @@
+$deep-pink= #EF49B7
+
+.Library-Panel
+  margin 8px
+  height calc(100vh - 128px)
+  overflow scroll
+
+.Library-Item
+  width 100%
+  font-size 20px
+  color #fff
+  border-bottom 1px solid #410287
+  padding 13px 10px
+  display flex
+  flex-direction column
+  list-style-type none
+
+  h3,
+  h6,
+  ul
+    margin 0
+    padding 0
+
+  ul
+    list-style-type none
+    display flex
+    padding 1em
+    justify-content center
+
+    li
+      border-radius 50%
+      background-color $deep-pink
+      padding 1rem
+      height 5rem
+      width 5rem
+      text-align center
+      margin 0 1rem
+
+.Track-Tags > strong
+  margin-right 0.4em
+
+.Track-Tags > span
+  padding 6px 13px
+  font-size 12px
+  max-width 278px
+  text-overflow ellipsis
+  overflow hidden
+  margin 0 5px 5px 0
+  background white
+  border 1px solid #eee
+  border-radius 20px
+  display inline-block
+  color #666
+  vertical-align middle

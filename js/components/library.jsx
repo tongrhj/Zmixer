@@ -2,6 +2,8 @@ import React from 'react'
 import {tagNames} from '../constants/AppConstants'
 import SoundBubble from './bubble'
 
+import './library.styl'
+
 export default class Library extends React.Component {
   static propTypes = {
     userID: React.PropTypes.string.isRequired,
@@ -65,7 +67,7 @@ export default class Library extends React.Component {
     })
 
     return (
-      <div>
+      <div className='Library-Panel'>
         <h3>Explore & find new tracks</h3>
         <label><input {...checkByMeProps} />By me</label>
         <label>Filter by tag:<select {...tagFilterProps} >{tagsDropdown}</select></label>
@@ -99,11 +101,11 @@ class TrackInfo extends React.Component {
     })
 
     return (
-      <li>
+      <li className='Library-Item'>
         <h3>{this.props.title}</h3>
         <h6>{'Composed by: ' + this.props.composedBy}</h6>
         <ul>{layerSet}</ul>
-        <label>Tags:{tagSet}</label>
+        <label className='Track-Tags'><strong>Tags:</strong>{tagSet}</label>
         <h3>{this.props.timesPlayed}</h3>
         <button onClick={this.props.trackLoader(this.props.trackID)}>Listen</button>
       </li>

@@ -63,7 +63,9 @@ export default class Main extends React.Component {
     super(props)
     this.state = {
       currentTrack: newTrack(),
-      library: collection
+      library: collection,
+      currentView: 'mixing',
+      key: 'mixing'
     }
     console.log(this.state)
     this.trackLoader = this.trackLoader.bind(this)
@@ -87,6 +89,14 @@ export default class Main extends React.Component {
     this.forceUpdate()
   }
 
+  handleViewChange (newView) {
+    this.setState({currentView: newView})
+  }
+
+  handleNavClick () {
+    this.setState({currentView: this.props.key})
+  }
+
   render () {
     const playerProps = {
       title: this.state.currentTrack.title,
@@ -100,7 +110,7 @@ export default class Main extends React.Component {
       layers: this.state.currentTrack.layers,
       tags: this.state.currentTrack.tags,
       uploadHandler: this.uploadHandler,
-      showCompose: true
+      checkView: this.handleViewChange.bind(this)
     }
 
     const libraryProps = {
@@ -110,15 +120,26 @@ export default class Main extends React.Component {
     }
 
     const mixingProps = {
-      layers: this.state.currentTrack.layers
+      layers: this.state.currentTrack.layers,
+      checkView: this.handleViewChange.bind(this)
     }
 
-
+    let viewToShow
+    if (this.state.currentView === 'mixing') {
+      viewToShow = <Mixing {...mixingProps} />
+    } else if (this.state.currentView === 'compose') {
+      viewToShow = <Compose {...composeProps} />
+    } else if (this.state.currentView === 'library') {
+      viewToShow = <Library {...libraryProps} />
+    }
     return (
       <div className='MobileContainer'>
+        <nav>
+          <button onClick={this.handleClick.bind(this)} key='mixing'>Mix</button>
+          <button onClick={this.handleClick.bind(this)} key='library'>Library</button>
+        </nav>
         <Player {...playerProps} />
-        <Compose {...composeProps} />
-        <Mixing {...mixingProps} />
+        {viewToShow}
       </div>
     )
   }

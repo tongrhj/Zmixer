@@ -14,7 +14,7 @@ export default class Compose extends React.Component {
     })).isRequired,
     tags: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
     uploadHandler: React.PropTypes.func.isRequired,
-    showCompose: React.PropTypes.bool
+    checkView: React.PropTypes.func
   };
 
   constructor (props) {
@@ -53,11 +53,11 @@ export default class Compose extends React.Component {
   }
 
   handleClick () {
-    this.props.showCompose = false
+    this.setState({showCompose: false})
+    this.props.checkView('library')
   }
 
   render () {
-
     const titleInputProps = {
       type: 'text',
       value: this.state.title,
@@ -92,7 +92,7 @@ export default class Compose extends React.Component {
     })
 
     return (
-      <div className={this.props.showCompose ? 'Compose-Panel' : 'Compose-Panel-hidden'}>
+      <div className={this.state.showCompose ? 'Compose-Panel' : 'Compose-Panel-hidden'}>
         <h2>Great work!</h2>
         <h3>Here's your track</h3>
         <ul>{layersChosen}</ul>

@@ -10,6 +10,7 @@ export default class Mixing extends React.Component {
     //   layerID: React.PropTypes.number.isRequired,
     //   volume: React.PropTypes.number.isRequired
     // })).isRequired
+    checkView: React.PropTypes.func
   };
 
   constructor (props) {
@@ -21,7 +22,8 @@ export default class Mixing extends React.Component {
   }
 
   handleClick (e) {
-    this.setState({hidden: true})
+    this.setState({hidden: true}).bind(this)
+    this.props.checkView('compose')
   }
 
   render () {
@@ -97,13 +99,11 @@ class Bubble extends React.Component {
   }
 
   render () {
-    const self = this
-
     // let bubbleSize = this.state.bubbleSize
 
     const bubbleClass = classNames({
       'Mixing-bubble': true,
-      'Mixing-bubble-selected': self.state.selected,
+      'Mixing-bubble-selected': this.state.selected,
       // ['Mixing-bubble-${bubbleSize}']: this.state.selected && (this.state.bubbleSize > 1)
       'Mixing-bubble-0': !this.state.selected && (this.state.bubbleSize === 0),
       'Mixing-bubble-2': this.state.selected && (this.state.bubbleSize === 2),
@@ -123,7 +123,7 @@ class Bubble extends React.Component {
 
     return (
       <div {...bubbleProps} className={bubbleClass} onClick={this.handleClick.bind(this)}>
-        <h1>{ self.props.label }</h1>
+        <h1>{ this.props.label }</h1>
       </div>
     )
   }
