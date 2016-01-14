@@ -1,6 +1,8 @@
 import React from 'react'
 import classNames from 'classnames'
 
+import './player.styl'
+
 export default class Player extends React.Component {
   static propTypes = {
     title: React.PropTypes.string.isRequired,
@@ -60,16 +62,16 @@ export default class Player extends React.Component {
 
   render () {
     const playButtonProps = {
-      className: classNames('fa', 'fa-play', {highlight: this.state.playing}),
+      className: classNames('btn-play', 'fa', 'fa-play', {highlight: this.state.playing}),
       disabled: this.state.playing,
       onClick: this.togglePlay
     }
 
-    const pauseButtonProps = {
-      className: classNames('fa', 'fa-pause', {highlight: !this.state.playing}),
-      disabled: !this.state.playing,
-      onClick: this.togglePause
-    }
+    // const pauseButtonProps = {
+    //   className: classNames('fa', 'fa-pause', {highlight: !this.state.playing}),
+    //   disabled: !this.state.playing,
+    //   onClick: this.togglePause
+    // }
 
     const volumeControlProps = {
       type: 'range',
@@ -90,10 +92,9 @@ export default class Player extends React.Component {
       (this.state.countdown % 60 < 10 ? '0' : '') + this.state.countdown % 60
 
     return (
-      <div>
-        <h3>{this.props.title || 'Untitled'}</h3>
+      <div className='Player'>
         <button {...playButtonProps} />
-        <button {...pauseButtonProps} />
+        <h3>{this.props.title || 'Untitled'}</h3>
         <input {...volumeControlProps} />
         <button {...timerProps} >{timerDisplay}</button>
       </div>

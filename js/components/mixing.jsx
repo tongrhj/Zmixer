@@ -8,14 +8,16 @@ import './mixing.styl'
 
 export default class Mixing extends React.Component {
   static propTypes = {
-    tracks: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
-    samples: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
-  }
+    // layers: React.PropTypes.arrayOf(React.PropTypes.shape({
+    //   layerID: React.PropTypes.number.isRequired,
+    //   volume: React.PropTypes.number.isRequired
+    // })).isRequired
+  };
 
   constructor (props) {
     super(props)
     this.state = {
-      samplenames: ['cafe', 'fire', 'jungle', 'rain', 'river', 'seawaves', 'wind']
+      samplenames: ['cafe', 'fire', 'jungle', 'rain', 'river', 'waves', 'wind']
     }
   }
 
@@ -98,7 +100,7 @@ class Bubble extends React.Component {
       'Mixing-bubble-jungle': this.props.label === 'jungle',
       'Mixing-bubble-rain': this.props.label === 'rain',
       'Mixing-bubble-river': this.props.label === 'river',
-      'Mixing-bubble-seawaves': this.props.label === 'seawaves',
+      'Mixing-bubble-seawaves': this.props.label === 'waves',
       'Mixing-bubble-wind': this.props.label === 'wind'
     })
 
@@ -108,7 +110,7 @@ class Bubble extends React.Component {
 
     return (
       <div {...bubbleProps} className={bubbleClass} onClick={this.handleClick.bind(this)}>
-        <label>{ self.props.label }</label>
+        <h1>{ self.props.label }</h1>
       </div>
     )
   }

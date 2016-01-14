@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Player from './player'
 import Compose from './compose'
 import Library from './library'
+import Mixing from './mixing'
+
+import './main.styl'
 
 const userID = 'Anon'
 
@@ -56,6 +59,10 @@ function newTrack () {
 }
 
 export default class Main extends React.Component {
+  static propTypes= {
+    children: PropTypes.element.isRequired
+  };
+
   constructor (props) {
     super(props)
     this.state = {
@@ -105,11 +112,14 @@ export default class Main extends React.Component {
       trackLoader: this.trackLoader
     }
 
+    const mixingProps = {
+      layers: this.state.currentTrack.layers
+    }
+
     return (
-      <div>
+      <div className='MobileContainer'>
+        <Mixing {...mixingProps} />
         <Player {...playerProps} />
-        <Compose {...composeProps} />
-        <Library {...libraryProps} />
       </div>
     )
   }
