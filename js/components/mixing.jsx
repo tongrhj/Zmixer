@@ -22,7 +22,7 @@ export default class Mixing extends React.Component {
   }
 
   handleClick (e) {
-    this.setState({hidden: true}).bind(this)
+    this.setState({hidden: true})
     this.props.checkView('compose')
   }
 

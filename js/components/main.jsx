@@ -64,8 +64,7 @@ export default class Main extends React.Component {
     this.state = {
       currentTrack: newTrack(),
       library: collection,
-      currentView: 'mixing',
-      key: 'mixing'
+      currentView: 'mixing'
     }
     console.log(this.state)
     this.trackLoader = this.trackLoader.bind(this)
@@ -93,8 +92,8 @@ export default class Main extends React.Component {
     this.setState({currentView: newView})
   }
 
-  handleNavClick () {
-    this.setState({currentView: this.props.key})
+  handleNavClick (newView) {
+    this.setState({currentView: newView})
   }
 
   render () {
@@ -134,10 +133,6 @@ export default class Main extends React.Component {
     }
     return (
       <div className='MobileContainer'>
-        <nav>
-          <button onClick={this.handleClick.bind(this)} key='mixing'>Mix</button>
-          <button onClick={this.handleClick.bind(this)} key='library'>Library</button>
-        </nav>
         <Player {...playerProps} />
         {viewToShow}
       </div>
