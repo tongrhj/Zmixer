@@ -1,7 +1,5 @@
 /* globals Audio */
-
 import React from 'react'
-
 import classNames from 'classnames'
 
 import './mixing.styl'
@@ -17,18 +15,33 @@ export default class Mixing extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      samplenames: ['cafe', 'fire', 'jungle', 'rain', 'river', 'waves', 'wind']
+      samplenames: ['cafe', 'fire', 'jungle', 'rain', 'river', 'waves', 'wind'],
+      hidden: false
     }
   }
 
+  handleClick (e) {
+    this.setState({hidden: true})
+  }
+
   render () {
+    const mixingPanelClasses = classNames({
+      'Mixing-panel': true,
+      'Mixing-panel-hidden': this.state.hidden
+    })
+
     return (
-      <section className='Mixing-section'>
-        {this.state.samplenames.map((name, idx) => {
-          return <Bubble label={name} key={idx}/>
-        })
-        }
-      </section>
+      <div className={mixingPanelClasses}>
+        <header className='Mixing-header' onClick={this.handleClick.bind(this)}>
+          <h1>Save</h1>
+        </header>
+        <section className='Mixing-section'>
+          {this.state.samplenames.map((name, idx) => {
+            return <Bubble label={name} key={idx}/>
+          })
+          }
+        </section>
+      </div>
     )
   }
 }

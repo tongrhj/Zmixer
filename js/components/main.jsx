@@ -59,10 +59,6 @@ function newTrack () {
 }
 
 export default class Main extends React.Component {
-  static propTypes= {
-    children: PropTypes.element.isRequired
-  };
-
   constructor (props) {
     super(props)
     this.state = {
@@ -103,7 +99,8 @@ export default class Main extends React.Component {
       composedBy: userID,
       layers: this.state.currentTrack.layers,
       tags: this.state.currentTrack.tags,
-      uploadHandler: this.uploadHandler
+      uploadHandler: this.uploadHandler,
+      showCompose: true
     }
 
     const libraryProps = {
@@ -116,10 +113,12 @@ export default class Main extends React.Component {
       layers: this.state.currentTrack.layers
     }
 
+
     return (
       <div className='MobileContainer'>
-        <Mixing {...mixingProps} />
         <Player {...playerProps} />
+        <Compose {...composeProps} />
+        <Mixing {...mixingProps} />
       </div>
     )
   }

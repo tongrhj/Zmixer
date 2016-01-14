@@ -2,6 +2,8 @@ import React from 'react'
 import SoundBubble from './bubble'
 import {tagNames} from '../constants/AppConstants'
 
+import './compose.styl'
+
 export default class Compose extends React.Component {
   static propTypes = {
     title: React.PropTypes.string.isRequired,
@@ -11,7 +13,8 @@ export default class Compose extends React.Component {
       volume: React.PropTypes.number.isRequired
     })).isRequired,
     tags: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-    uploadHandler: React.PropTypes.func.isRequired
+    uploadHandler: React.PropTypes.func.isRequired,
+    showCompose: React.PropTypes.bool
   };
 
   constructor (props) {
@@ -22,7 +25,8 @@ export default class Compose extends React.Component {
 
     this.state = {
       title: this.props.title,
-      tagState: tagState
+      tagState: tagState,
+      showCompose: true
     }
 
     this.changeTitle = this.changeTitle.bind(this)
@@ -48,7 +52,12 @@ export default class Compose extends React.Component {
     this.props.uploadHandler(newData)
   }
 
+  handleClick () {
+    this.props.showCompose = false
+  }
+
   render () {
+
     const titleInputProps = {
       type: 'text',
       value: this.state.title,
@@ -83,15 +92,15 @@ export default class Compose extends React.Component {
     })
 
     return (
-      <div>
+      <div className={this.props.showCompose ? 'Compose-Panel' : 'Compose-Panel-hidden'}>
         <h2>Great work!</h2>
         <h3>Here's your track</h3>
         <ul>{layersChosen}</ul>
         <h3>One more step</h3>
         <label>Title:<input {...titleInputProps} /></label>
         <label>Composed by:<input {...composedByProps} /></label>
-        <label>Select tags:{tagList}</label>
-        <button {...submitButtonProps} >Add to library</button>
+        <label className='Compose-TagList'>Select tags:{tagList}</label>
+        <button {...submitButtonProps} onClick={this.handleClick.bind(this)}>Add to library</button>
       </div>
     )
   }
