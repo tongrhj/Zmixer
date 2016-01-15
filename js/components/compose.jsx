@@ -120,7 +120,8 @@ export default class Compose extends React.Component {
         <label>Title:<input {...titleInputProps} /></label>
         <label>Composed by:<input {...composedByProps} /></label>
         <label className='Compose-TagList'>Select tags:{tagList}</label>
-        <button {...submitButtonProps} onClick={this.handleClick.bind(this)}>Add to library</button>
+        <button {...submitButtonProps}>Add to library</button>
+        <button onClick={this.handleClick.bind(this)}>Library</button>
       </div>
     )
   }
