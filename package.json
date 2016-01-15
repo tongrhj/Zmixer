@@ -4,7 +4,8 @@
   "description": "A single page app",
   "main": "js/app.js",
   "scripts": {
-    "start": "npm run build && http-server",
+    "start": "http-server",
+    "bundle": "npm run build && http-server",
     "build": "webpack",
     "watch": "node js/server.js",
     "test": "standard && mocha"
