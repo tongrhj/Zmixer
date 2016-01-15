@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Player from './player'
 import Compose from './compose'
 import Library from './library'
+<<<<<<< HEAD
+import Mixing from './mixing'
+
+import './main.styl'
+
+const userID = 'Anon'
+=======
 import MixingRoom from './mixing'
 import update from 'react-addons-update'
 import sortBy from 'lodash.sortby'
+>>>>>>> yongjun21/master
 
 const collection = [
   {
@@ -47,8 +55,16 @@ export default class Main extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+<<<<<<< HEAD
       currentTrack: newTrack(),
+      library: collection,
+      currentView: 'mixing'
+=======
+      userID: 'Jared Tong',
+      currentTrackID: -1,
+      layers: [],
       library: collection
+>>>>>>> yongjun21/master
     }
     this.volumeUpLayer = this.volumeUpLayer.bind(this)
     this.loadTrack = this.loadTrack.bind(this)
@@ -128,11 +144,21 @@ export default class Main extends React.Component {
     }
 
     const composeProps = {
+<<<<<<< HEAD
       title: this.state.currentTrack.title,
       composedBy: userID,
       layers: this.state.currentTrack.layers,
       tags: this.state.currentTrack.tags,
+      uploadHandler: this.uploadHandler,
+      checkView: this.handleViewChange.bind(this)
+=======
+      ref: 'compose',
+      title: currentTrack.title,
+      composedBy: this.state.userID,
+      layers: this.state.layers,
+      tags: currentTrack.tags,
       uploadHandler: this.uploadHandler
+>>>>>>> yongjun21/master
     }
 
     const libraryProps = {
@@ -162,9 +188,13 @@ export default class Main extends React.Component {
     return (
       <div className='MobileContainer'>
         <Player {...playerProps} />
+<<<<<<< HEAD
+        {viewToShow}
+=======
         <Compose {...composeProps} />
         <Library {...libraryProps} />
         <MixingRoom {...mixingRoomProps} />
+>>>>>>> yongjun21/master
       </div>
     )
   }

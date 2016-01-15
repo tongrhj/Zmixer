@@ -11,8 +11,13 @@ export default class Compose extends React.Component {
       sampleID: React.PropTypes.number.isRequired,
       volume: React.PropTypes.number.isRequired
     })).isRequired,
+<<<<<<< HEAD
     tags: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+    uploadHandler: React.PropTypes.func.isRequired,
+    checkView: React.PropTypes.func
+=======
     uploadHandler: React.PropTypes.func.isRequired
+>>>>>>> yongjun21/master
   };
 
   constructor (props) {
@@ -22,8 +27,14 @@ export default class Compose extends React.Component {
     tagNames.forEach(tag => tagState[tag] = false)
 
     this.state = {
+<<<<<<< HEAD
+      title: this.props.title,
+      tagState: tagState,
+      showCompose: true
+=======
       title: '',
       tagState: tagState
+>>>>>>> yongjun21/master
     }
 
     this.importState = this.importState.bind(this)
@@ -106,10 +117,10 @@ export default class Compose extends React.Component {
     })
 
     return (
-      <div>
+      <div className={this.state.showCompose ? 'Compose-Panel' : 'Compose-Panel-hidden'}>
         <h2>Great work!</h2>
         <h3>Here's your track</h3>
-        <ul>{layersChosen}</ul>
+        <div>{layersChosen}</div>
         <h3>One more step</h3>
         <label>Title:<input {...titleInputProps} /></label>
         <label>Composed by:<input {...composedByProps} /></label>

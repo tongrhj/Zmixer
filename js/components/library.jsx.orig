@@ -117,8 +117,13 @@ class TrackInfo extends React.Component {
       <li className='Library-Item'>
         <h3>{this.props.title}</h3>
         <h6>{'Composed by: ' + this.props.composedBy}</h6>
+<<<<<<< HEAD
         <ul>{layerSet}</ul>
+        <label className='Track-Tags'><strong>Tags:</strong>{tagSet}</label>
+=======
+        <div>{layerSet}</div>
         <label>Tags:{tagSet}</label>
+>>>>>>> yongjun21/master
         <h3>{this.props.timesPlayed}</h3>
         <button {...buttonProps}>Listen</button>
       </li>
