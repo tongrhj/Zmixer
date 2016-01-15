@@ -112,7 +112,7 @@ export default class Compose extends React.Component {
     })
 
     return (
-      <div>
+      <div className='Compose-Panel'>
         <h2>Great work!</h2>
         <h3>Here's your track</h3>
         <ul>{layersChosen}</ul>

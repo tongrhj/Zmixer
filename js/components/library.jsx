@@ -123,7 +123,7 @@ class TrackInfo extends React.Component {
         <h3>{this.props.title}</h3>
         <h6>{'Composed by: ' + this.props.composedBy}</h6>
         <ul>{layerSet}</ul>
-        <label>Tags:{tagSet}</label>
+        <label className='Track-Tags'><strong>Tags:</strong>{tagSet}</label>
         <h3>{this.props.timesPlayed}</h3>
         <button {...buttonProps}>Listen</button>
       </li>

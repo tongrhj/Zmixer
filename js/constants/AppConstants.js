@@ -5,7 +5,7 @@ export const tagNames = [
   'Weather',
   'Instrumental',
   'Vocal',
-  'New age',
+  'New Age',
   'White noise'
 ]
 
