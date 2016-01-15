@@ -16,7 +16,8 @@ export default class Library extends React.Component {
       tags: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
       timesPlayed: React.PropTypes.number.isRequired
     })).isRequired,
-    loadTrack: React.PropTypes.func.isRequired
+    loadTrack: React.PropTypes.func.isRequired,
+    checkView: React.PropTypes.func.isRequired
   };
 
   constructor (props) {
@@ -37,6 +38,10 @@ export default class Library extends React.Component {
 
   selectTagFilter (event) {
     this.setState({tagFilter: event.target.selectedIndex})
+  }
+
+  handleClick () {
+    this.props.checkView('mixing')
   }
 
   render () {
@@ -72,6 +77,7 @@ export default class Library extends React.Component {
         <label><input {...checkByMeProps} />By me</label>
         <label>Filter by tag:<select {...tagFilterProps} >{tagsDropdown}</select></label>
         <ul>{filteredCollection}</ul>
+        <button onClick={this.handleClick.bind(this)}>Back to Mixing</button>
       </div>
     )
   }

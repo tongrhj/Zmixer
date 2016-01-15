@@ -12,13 +12,23 @@ export default class SoundBubble extends React.Component {
 
   render () {
     const sample = sampleNames[this.props.sampleID]
-    const iconUrl = '/assets/icons/' + sample.replace(' ', '').toLowerCase()
-    const scaleFactor = this.props.size * (1 + 0 * this.props.volume)
+    // const iconUrl = '/assets/icons/' + sample.replace(' ', '').toLowerCase()
+    const scaleFactor = this.props.size * (1 + 0.2 * this.props.volume)
 
     const buttonProps = {
       style: {
-        backgroundImage: 'url(' + iconUrl + ')',
-        transform: 'scale(' + scaleFactor + ')'
+        // backgroundImage: 'url(' + iconUrl + ')',
+        backgroundColor: '#EF49B7',
+        color: 'white',
+        transform: 'scale(' + scaleFactor + ')',
+        width: '80px',
+        height: '80px',
+        borderRadius: '50%',
+        transition: 'transform 0.2s ease-out, background-color 0.2s ease-out',
+        textTransform: 'capitalize',
+        fontWeight: '600',
+        textAlign: 'center',
+        border: 'none'
       },
       value: this.props.sampleID,
       disabled: !this.props.active,

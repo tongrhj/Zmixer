@@ -6,64 +6,64 @@ $deep-pink= #EF49B7
 $bubble-size= 80px
 $max-scale-factor = 1.4
 
-.Mixing-bubble
-  width $bubble-size
-  height $bubble-size
-  border-radius $bubble-size
-  background-color grayscale(salmon)
-  color white
-  // margin (@height * $max-scale-factor / 2) (@width * $max-scale-factor / 2)
-  transition transform 0.2s ease-out, background-color 0.2s ease-out
-  background-size cover
-  background-color grey
-  background-blend-mode soft-light
-  position absolute
-
-  h1
-    position relative
-    text-transform capitalize
-    font-weight 600
-    text-align center
-    transform translateY(66%)
-    margin 0
-
-.Mixing-bubble-cafe
-  background-image url('/images/cafe-icon.jpg')
-  top ($bubble-size * $max-scale-factor)
-  left calc(50vw - 104px)
-
-.Mixing-bubble-fire
-  background-image url('/images/fire-icon.jpg')
-  top ($bubble-size * $max-scale-factor)
-  left calc(50vw + 30px)
-
-.Mixing-bubble-jungle
-  background-image url('/images/jungle-icon.jpg')
-  top ($bubble-size * $max-scale-factor * 2.1)
-  left calc(50vw - 160px)
-
-.Mixing-bubble-rain
-  background-image url('/images/rain-icon.jpg')
-  top ($bubble-size * $max-scale-factor * 2.1)
-  left calc(50vw - 34px)
-
-.Mixing-bubble-river
-  background-image url('/images/river-icon.jpg')
-  top ($bubble-size * $max-scale-factor * 2.1)
-  left calc(50vw + 90px)
-
-.Mixing-bubble-seawaves
-  background-image url('/images/seawaves-icon.jpg')
-  top ($bubble-size * $max-scale-factor * 3.3)
-  left calc(50vw - 104px)
-
-.Mixing-bubble-wind
-  background-image url('/images/wind-icon.jpg')
-  top ($bubble-size * $max-scale-factor * 3.3)
-  left calc(50vw + 30px)
+// .Mixing-bubble
+//   width $bubble-size
+//   height $bubble-size
+//   border-radius $bubble-size
+//   background-color grayscale(salmon)
+//   color white
+//   // margin (@height * $max-scale-factor / 2) (@width * $max-scale-factor / 2)
+//   transition transform 0.2s ease-out, background-color 0.2s ease-out
+//   background-size cover
+//   background-color grey
+//   background-blend-mode soft-light
+//   position absolute
+//
+//   h1
+//     position relative
+//     text-transform capitalize
+//     font-weight 600
+//     text-align center
+//     transform translateY(66%)
+//     margin 0
+//
+// .Mixing-bubble-cafe
+//   background-image url('/images/cafe-icon.jpg')
+//   top ($bubble-size * $max-scale-factor)
+//   left calc(50vw - 104px)
+//
+// .Mixing-bubble-fire
+//   background-image url('/images/fire-icon.jpg')
+//   top ($bubble-size * $max-scale-factor)
+//   left calc(50vw + 30px)
+//
+// .Mixing-bubble-jungle
+//   background-image url('/images/jungle-icon.jpg')
+//   top ($bubble-size * $max-scale-factor * 2.1)
+//   left calc(50vw - 160px)
+//
+// .Mixing-bubble-rain
+//   background-image url('/images/rain-icon.jpg')
+//   top ($bubble-size * $max-scale-factor * 2.1)
+//   left calc(50vw - 34px)
+//
+// .Mixing-bubble-river
+//   background-image url('/images/river-icon.jpg')
+//   top ($bubble-size * $max-scale-factor * 2.1)
+//   left calc(50vw + 90px)
+//
+// .Mixing-bubble-seawaves
+//   background-image url('/images/seawaves-icon.jpg')
+//   top ($bubble-size * $max-scale-factor * 3.3)
+//   left calc(50vw - 104px)
+//
+// .Mixing-bubble-wind
+//   background-image url('/images/wind-icon.jpg')
+//   top ($bubble-size * $max-scale-factor * 3.3)
+//   left calc(50vw + 30px)
 
 .Mixing-panel
-  transition all 800ms cubic-bezier(0.175, 0.885, 0.335, 1.05)
+  transition all 400ms cubic-bezier(0.175, 0.885, 0.335, 1.05)
   z-index 9
 
 .Mixing-panel-hidden
@@ -82,34 +82,19 @@ $max-scale-factor = 1.4
     font-weight 300
     font-size 1em
 
-.Mixing-ripple
-  width 300px
-  height 300px
-  border-radius 50%
-  border 3px solid white
-  transition transform 0.2s ease-out
-  transform scale(0.1)
-  position absolute
-  top 0
-  left 0
-
-.Mixing-ripple-expand
-  opacity 0
-  transform none
-
-.Mixing-bubble-selected
-  background-color shade($deep-pink, 40%)
-
-.Mixing-bubble-0
-  transform scale(0.6)
-
-.Mixing-bubble-2
-  transform scale(1.2)
-  background-color shade($deep-pink, 20%)
-
-.Mixing-bubble-3
-  transform scale($max-scale-factor)
-  background-color $deep-pink
+// .Mixing-bubble-selected
+//   background-color shade($deep-pink, 40%)
+//
+// .Mixing-bubble-0
+//   transform scale(0.6)
+//
+// .Mixing-bubble-2
+//   transform scale(1.2)
+//   background-color shade($deep-pink, 20%)
+//
+// .Mixing-bubble-3
+//   transform scale($max-scale-factor)
+//   background-color $deep-pink
 
 .Mixing-section
   background-color black
@@ -121,3 +106,8 @@ $max-scale-factor = 1.4
   margin 8px
   height calc(100vh - 128px)
   overflow hidden
+
+.Mixing-bubbleList
+  display flex
+  flex-wrap wrap
+  justify-content space-around

@@ -2,6 +2,9 @@ import React from 'react'
 import SoundBubble from './bubble'
 import {sampleNames, bubbleSizes} from '../constants/AppConstants'
 import partition from 'lodash.partition'
+import classNames from 'classnames'
+
+import './mixing.styl'
 
 function shuffledList (size) {
   const original = []
@@ -16,14 +19,17 @@ function shuffledList (size) {
 export default class MixingRoom extends React.Component {
   static propTypes = {
     layers: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
-    volumeUp: React.PropTypes.func.isRequired
+    volumeUp: React.PropTypes.func.isRequired,
+    checkView: React.PropTypes.func.isRequired,
+    style: React.PropTypes.object
   };
 
   constructor (props) {
     super(props)
     this.state = {
       outer: shuffledList(sampleNames.length),
-      inner: shuffledList(bubbleSizes.length)
+      inner: shuffledList(bubbleSizes.length),
+      hideMe: false
     }
     this.shuffleBubbles = this.shuffleBubbles.bind(this)
   }
@@ -32,6 +38,13 @@ export default class MixingRoom extends React.Component {
     this.setState({
       outer: shuffledList(sampleNames.length),
       inner: shuffledList(bubbleSizes.length)
+    })
+  }
+
+  handleClick () {
+    this.setState({ hideMe: true })
+    this.refs.MixingComponent.addEventListener('transitionend', () => {
+      this.props.checkView('compose')
     })
   }
 
@@ -50,11 +63,21 @@ export default class MixingRoom extends React.Component {
       return <SoundBubble key={sampleID} {...bubbleProps}/>
     })
 
+    const mixingPanelClasses = classNames({
+      'Mixing-panel': true,
+      'Mixing-panel-hidden': this.state.hideMe
+    })
+
     return (
-      <div>
-        <h3>Be creative</h3>
-        <div>{basket}</div>
-        <button onClick={this.shuffleBubbles}>Shuffle</button>
+      <div className={mixingPanelClasses} ref='MixingComponent'>
+        <header className='Mixing-header' onClick={this.handleClick.bind(this)}>
+          <h1>Save</h1>
+        </header>
+        <section className='Mixing-section'>
+          <h3>Be creative</h3>
+          <div className='Mixing-bubbleList'>{basket}</div>
+          <button onClick={this.shuffleBubbles}>Shuffle</button>
+        </section>
       </div>
     )
   }

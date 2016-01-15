@@ -12,7 +12,8 @@ export default class Compose extends React.Component {
       volume: React.PropTypes.number.isRequired
     })).isRequired,
     tags: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-    uploadHandler: React.PropTypes.func.isRequired
+    uploadHandler: React.PropTypes.func.isRequired,
+    checkView: React.PropTypes.func.isRequired
   };
 
   constructor (props) {
@@ -62,7 +63,6 @@ export default class Compose extends React.Component {
   }
 
   handleClick () {
-    this.setState({showCompose: false})
     this.props.checkView('library')
   }
 

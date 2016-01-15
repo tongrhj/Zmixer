@@ -6,6 +6,8 @@ import MixingRoom from './mixing'
 import update from 'react-addons-update'
 import sortBy from 'lodash.sortby'
 
+import './main.styl'
+
 const collection = [
   {
     trackID: 1,
@@ -37,8 +39,9 @@ export default class Main extends React.Component {
     this.state = {
       userID: 'Jared Tong',
       currentTrackID: -1,
-      layers: [],
-      library: collection
+      layers: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      library: collection,
+      currentView: 'mixing'
     }
     this.volumeUpLayer = this.volumeUpLayer.bind(this)
     this.loadTrack = this.loadTrack.bind(this)
@@ -91,10 +94,6 @@ export default class Main extends React.Component {
     this.setState({currentView: newView})
   }
 
-  handleNavClick (newView) {
-    this.setState({currentView: newView})
-  }
-
   render () {
     const currentTrack = this.state.library.find(track => {
       return track.trackID === this.state.currentTrackID
@@ -108,32 +107,32 @@ export default class Main extends React.Component {
     }
 
     const composeProps = {
-      title: this.state.currentTrack.title,
-      composedBy: userID,
-      layers: this.state.currentTrack.layers,
-      tags: this.state.currentTrack.tags,
-      uploadHandler: this.uploadHandler
+      ref: 'compose',
+      title: currentTrack.title,
+      composedBy: this.state.userID,
+      layers: this.state.layers,
+      tags: currentTrack.tags,
+      uploadHandler: this.uploadHandler,
+      checkView: this.handleViewChange.bind(this)
     }
 
     const libraryProps = {
       userID: this.state.userID,
       collection: this.state.library,
-      loadTrack: this.loadTrack
+      loadTrack: this.loadTrack,
+      checkView: this.handleViewChange.bind(this)
     }
 
     const mixingRoomProps = {
       layers: this.state.layers,
-      volumeUp: this.volumeUpLayer
-    }
-
-    const mixingProps = {
-      layers: this.state.currentTrack.layers,
-      checkView: this.handleViewChange.bind(this)
+      volumeUp: this.volumeUpLayer,
+      checkView: this.handleViewChange.bind(this),
+      style: {}
     }
 
     let viewToShow
     if (this.state.currentView === 'mixing') {
-      viewToShow = <Mixing {...mixingProps} />
+      viewToShow = <MixingRoom {...mixingRoomProps} />
     } else if (this.state.currentView === 'compose') {
       viewToShow = <Compose {...composeProps} />
     } else if (this.state.currentView === 'library') {
@@ -142,9 +141,7 @@ export default class Main extends React.Component {
     return (
       <div className='MobileContainer'>
         <Player {...playerProps} />
-        <Compose {...composeProps} />
-        <Library {...libraryProps} />
-        <MixingRoom {...mixingRoomProps} />
+        {viewToShow}
       </div>
     )
   }
