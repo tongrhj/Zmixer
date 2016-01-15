@@ -50,10 +50,30 @@ export default class Main extends React.Component {
     const selectedSampleID = +event.target.value
     if (this.state.layers[selectedSampleID] === 4) {
       this.state.layers[selectedSampleID] = 0
+      this.playSound('close')
+    } else if (this.state.layers[selectedSampleID === 0]) {
+      this.state.layers[selectedSampleID]++
+      this.playSound('open')
     } else {
       this.state.layers[selectedSampleID]++
+      this.playSound('volume')
     }
     this.forceUpdate()
+  }
+
+  playSound (type) {
+    const isSafari = (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1)
+    if (!isSafari) {
+      let audio
+      if (type === 'open') {
+        audio = new Audio('./assets/ui-sounds/open-bubble.mp3')
+      } else if (type === 'volume') {
+        audio = new Audio('./assets/ui-sounds/single-bubble.mp3')
+      } else if (type === 'close') {
+        audio = new Audio('./assets/ui-sounds/close-bubble.mp3')
+      }
+      audio.play()
+    }
   }
 
   loadTrack (event) {

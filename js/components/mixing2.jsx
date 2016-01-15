@@ -1,8 +1,6 @@
 /* globals Audio */
 
 import React from 'react'
-
-
 import classNames from 'classnames'
 
 import './mixing.styl'
@@ -71,11 +69,11 @@ class Bubble extends React.Component {
     if (!isSafari) {
       let audio
       if (type === 'open') {
-        audio = new Audio('./ui-sounds/open-bubble.mp3')
+        audio = new Audio('./assets/ui-sounds/open-bubble.mp3')
       } else if (type === 'volume') {
-        audio = new Audio('./ui-sounds/single-bubble.mp3')
+        audio = new Audio('./assets/ui-sounds/single-bubble.mp3')
       } else if (type === 'close') {
-        audio = new Audio('./ui-sounds/close-bubble.mp3')
+        audio = new Audio('./assets/ui-sounds/close-bubble.mp3')
       }
       audio.play()
     }
