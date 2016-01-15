@@ -7,17 +7,16 @@ import './compose.styl'
 export default class Compose extends React.Component {
   static propTypes = {
     composedBy: React.PropTypes.string.isRequired,
+<<<<<<< HEAD
     layers: React.PropTypes.arrayOf(React.PropTypes.shape({
       sampleID: React.PropTypes.number.isRequired,
       volume: React.PropTypes.number.isRequired
     })).isRequired,
-<<<<<<< HEAD
     tags: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-    uploadHandler: React.PropTypes.func.isRequired,
-    checkView: React.PropTypes.func
 =======
-    uploadHandler: React.PropTypes.func.isRequired
+    layers: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
 >>>>>>> yongjun21/master
+    uploadHandler: React.PropTypes.func.isRequired
   };
 
   constructor (props) {
@@ -27,14 +26,8 @@ export default class Compose extends React.Component {
     tagNames.forEach(tag => tagState[tag] = false)
 
     this.state = {
-<<<<<<< HEAD
-      title: this.props.title,
-      tagState: tagState,
-      showCompose: true
-=======
       title: '',
       tagState: tagState
->>>>>>> yongjun21/master
     }
 
     this.importState = this.importState.bind(this)
@@ -97,14 +90,20 @@ export default class Compose extends React.Component {
       onClick: this.uploadData
     }
 
-    const layersChosen = this.props.layers.map((layer, idx) => {
-      const bubbleProps = Object.assign(layer, {
-        key: idx,
-        size: 1,
-        active: false
+    const layersChosen = this.props.layers
+      .map((volume, idx) => {
+        return {
+          sampleID: idx,
+          volume: volume,
+          size: 1,
+          active: false
+        }
       })
-      return <SoundBubble {...bubbleProps} />
-    })
+      .filter(props => props.volume > 0)
+      .map(props => {
+        return <SoundBubble key={props.sampleID} {...props} />
+      })
+
     const tagList = []
     tagNames.map((tag, idx) => {
       const checkboxProps = {
@@ -117,10 +116,10 @@ export default class Compose extends React.Component {
     })
 
     return (
-      <div className={this.state.showCompose ? 'Compose-Panel' : 'Compose-Panel-hidden'}>
+      <div>
         <h2>Great work!</h2>
         <h3>Here's your track</h3>
-        <div>{layersChosen}</div>
+        <ul>{layersChosen}</ul>
         <h3>One more step</h3>
         <label>Title:<input {...titleInputProps} /></label>
         <label>Composed by:<input {...composedByProps} /></label>
