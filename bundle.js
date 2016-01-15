@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2ce3e0e09a3ee8aed38b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "dfebae99dbb3b204ca3a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -27978,17 +27978,19 @@
 
 	var _player2 = _interopRequireDefault(_player);
 
-	var _compose = __webpack_require__(252);
+	var _compose = __webpack_require__(256);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
-	var _library = __webpack_require__(254);
+	var _library = __webpack_require__(260);
 
 	var _library2 = _interopRequireDefault(_library);
 
-	var _mixing = __webpack_require__(271);
+	var _mixing = __webpack_require__(279);
 
 	var _mixing2 = _interopRequireDefault(_mixing);
+
+	__webpack_require__(283);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28000,21 +28002,21 @@
 
 	var collection = [{
 	  trackID: 1,
-	  title: 'Hello',
-	  composedBy: 'Anon',
+	  title: 'Space Oddity',
+	  composedBy: 'David Bowie',
 	  layers: [0, 3, 3, 3, 0, 0, 0, 0, 0, 0],
-	  tags: ['Nature', 'Sea'],
+	  tags: ['New Age'],
 	  timesPlayed: 10
 	}, {
 	  trackID: 2,
-	  title: 'World',
+	  title: 'Hello',
 	  composedBy: 'yongjun21',
 	  layers: [0, 2, 0, 3, 0, 4, 0, 0, 0, 0],
-	  tags: ['New age'],
+	  tags: ['Nature', 'Sea'],
 	  timesPlayed: 99
 	}, {
 	  trackID: 3,
-	  title: 'Happy birthday',
+	  title: 'Happy Birthday',
 	  composedBy: 'Jared Tong',
 	  layers: [0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
 	  tags: ['Urban', 'White noise'],
@@ -28033,7 +28035,8 @@
 	      userID: 'Jared Tong',
 	      currentTrackID: -1,
 	      layers: Array(10).fill(0),
-	      library: collection
+	      library: collection,
+	      currentView: 'mixing'
 	    };
 	    _this.volumeUpLayer = _this.volumeUpLayer.bind(_this);
 	    _this.loadTrack = _this.loadTrack.bind(_this);
@@ -28087,6 +28090,11 @@
 	      this.setState({ currentTrackID: newTrack.trackID });
 	    }
 	  }, {
+	    key: 'handleViewChange',
+	    value: function handleViewChange(newView) {
+	      this.setState({ currentView: newView });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -28107,27 +28115,37 @@
 	        composedBy: this.state.userID,
 	        layers: this.state.layers,
 	        tags: currentTrack.tags,
-	        uploadHandler: this.uploadHandler
+	        uploadHandler: this.uploadHandler,
+	        checkView: this.handleViewChange.bind(this)
 	      };
 
 	      var libraryProps = {
 	        userID: this.state.userID,
 	        collection: this.state.library,
-	        loadTrack: this.loadTrack
+	        loadTrack: this.loadTrack,
+	        checkView: this.handleViewChange.bind(this)
 	      };
 
 	      var mixingRoomProps = {
 	        layers: this.state.layers,
-	        volumeUp: this.volumeUpLayer
+	        volumeUp: this.volumeUpLayer,
+	        checkView: this.handleViewChange.bind(this),
+	        style: {}
 	      };
 
+	      var viewToShow = undefined;
+	      if (this.state.currentView === 'mixing') {
+	        viewToShow = _react2.default.createElement(_mixing2.default, mixingRoomProps);
+	      } else if (this.state.currentView === 'compose') {
+	        viewToShow = _react2.default.createElement(_compose2.default, composeProps);
+	      } else if (this.state.currentView === 'library') {
+	        viewToShow = _react2.default.createElement(_library2.default, libraryProps);
+	      }
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'MobileContainer' },
 	        _react2.default.createElement(_player2.default, playerProps),
-	        _react2.default.createElement(_compose2.default, composeProps),
-	        _react2.default.createElement(_library2.default, libraryProps),
-	        _react2.default.createElement(_mixing2.default, mixingRoomProps)
+	        viewToShow
 	      );
 	    }
 	  }]);
@@ -28167,6 +28185,8 @@
 	var _howler = __webpack_require__(251);
 
 	var _howler2 = _interopRequireDefault(_howler);
+
+	__webpack_require__(252);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28269,13 +28289,13 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'Player' },
+	        _react2.default.createElement('button', playButtonProps),
 	        _react2.default.createElement(
 	          'h3',
 	          null,
 	          this.props.title || 'Untitled'
 	        ),
-	        _react2.default.createElement('button', playButtonProps),
 	        _react2.default.createElement(
 	          'button',
 	          timerProps,
@@ -29863,6 +29883,356 @@
 /* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(253);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(253, function() {
+				var newContent = __webpack_require__(253);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".Player {\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  height: 120px;\n  background-color: #000;\n  width: 100vw;\n  padding: 8px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  z-index: 10;\n}\n.Player button.btn-play {\n  border: none;\n  color: #ef49b7;\n  font-size: 40px;\n  border-radius: 50%;\n  width: 80px;\n  height: 80px;\n  padding-left: 16px;\n  background-color: transparent;\n}\n.Player h3 {\n  margin: 0;\n  color: #ef49b7;\n  text-overflow: clip;\n  max-width: 30vw;\n  flex: 2 2 20em;\n}\n.Player button.countdown-timer {\n  background: transparent;\n  border-radius: 10px;\n  border: 1px solid #fff;\n  color: #fff;\n  padding: 1rem;\n  margin-right: 1rem;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 254 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(139); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
@@ -29879,11 +30249,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _bubble = __webpack_require__(253);
+	var _bubble = __webpack_require__(257);
 
 	var _bubble2 = _interopRequireDefault(_bubble);
 
 	var _AppConstants = __webpack_require__(247);
+
+	__webpack_require__(258);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29958,6 +30330,11 @@
 	      this.props.uploadHandler(newData);
 	    }
 	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      this.props.checkView('library');
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this3 = this;
@@ -30024,7 +30401,7 @@
 	          'Here\'s your track'
 	        ),
 	        _react2.default.createElement(
-	          'div',
+	          'ul',
 	          null,
 	          layersChosen
 	        ),
@@ -30047,7 +30424,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'label',
-	          null,
+	          { className: 'Compose-TagList' },
 	          'Select tags:',
 	          tagList
 	        ),
@@ -30055,6 +30432,11 @@
 	          'button',
 	          submitButtonProps,
 	          'Add to library'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.handleClick.bind(this) },
+	          'Library'
 	        )
 	      );
 	    }
@@ -30065,8 +30447,13 @@
 
 	Compose.propTypes = {
 	  composedBy: _react2.default.PropTypes.string.isRequired,
-	  layers: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.number).isRequired,
-	  uploadHandler: _react2.default.PropTypes.func.isRequired
+	  layers: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.shape({
+	    sampleID: _react2.default.PropTypes.number.isRequired,
+	    volume: _react2.default.PropTypes.number.isRequired
+	  })).isRequired,
+	  tags: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.string).isRequired,
+	  uploadHandler: _react2.default.PropTypes.func.isRequired,
+	  checkView: _react2.default.PropTypes.func.isRequired
 	};
 	exports.default = Compose;
 
@@ -30074,7 +30461,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 253 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(139); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -30114,13 +30501,23 @@
 	    key: 'render',
 	    value: function render() {
 	      var sample = _AppConstants.sampleNames[this.props.sampleID];
-	      var iconUrl = '/assets/icons/' + _AppConstants.sampleFileNames[this.props.sampleID] + 'jpg';
-	      var scaleFactor = this.props.size * (1 + 0 * this.props.volume);
+	      // const iconUrl = '/assets/icons/' + sampleFileNames[this.props.sampleID] + 'jpg'
+	      var scaleFactor = this.props.size * (1 + 0.1 * this.props.volume);
 
 	      var buttonProps = {
 	        style: {
-	          backgroundImage: 'url(' + iconUrl + ')',
-	          transform: 'scale(' + scaleFactor + ')'
+	          // backgroundImage: 'url(' + iconUrl + ')',
+	          backgroundColor: '#EF49B7',
+	          color: 'white',
+	          transform: 'scale(' + scaleFactor + ')',
+	          width: '80px',
+	          height: '80px',
+	          borderRadius: '50%',
+	          transition: 'transform 0.2s ease-out, background-color 0.2s ease-out',
+	          textTransform: 'capitalize',
+	          fontWeight: '600',
+	          textAlign: 'center',
+	          border: 'none'
 	        },
 	        value: this.props.sampleID,
 	        disabled: !this.props.active,
@@ -30151,7 +30548,47 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 254 */
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(259);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(259, function() {
+				var newContent = __webpack_require__(259);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".Compose-Panel {\n  position: absolute;\n  top: 0;\n  z-index: 0;\n  background-color: #000;\n  height: calc(100vh - 152px);\n  width: 100vw;\n  padding: 8px;\n  display: flex;\n  flex-direction: column;\n  overflow: scroll;\n}\n.Compose-TagList {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n}\n.Compose-Panel-hidden {\n  display: none;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(139); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -30170,15 +30607,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _bubble = __webpack_require__(253);
+	var _bubble = __webpack_require__(257);
 
 	var _bubble2 = _interopRequireDefault(_bubble);
 
 	var _AppConstants = __webpack_require__(247);
 
-	var _lodash = __webpack_require__(255);
+	var _lodash = __webpack_require__(261);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
+
+	__webpack_require__(277);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30215,6 +30654,11 @@
 	    key: 'selectTagFilter',
 	    value: function selectTagFilter(event) {
 	      this.setState({ tagFilter: event.target.selectedIndex });
+	    }
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      this.props.checkView('mixing');
 	    }
 	  }, {
 	    key: 'render',
@@ -30256,7 +30700,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'Library-Panel' },
 	        _react2.default.createElement(
 	          'h3',
 	          null,
@@ -30282,6 +30726,11 @@
 	          'ul',
 	          null,
 	          filteredCollection
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.handleClick.bind(this) },
+	          'Back to Mixing'
 	        )
 	      );
 	    }
@@ -30300,7 +30749,8 @@
 	    tags: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.string).isRequired,
 	    timesPlayed: _react2.default.PropTypes.number.isRequired
 	  })).isRequired,
-	  loadTrack: _react2.default.PropTypes.func.isRequired
+	  loadTrack: _react2.default.PropTypes.func.isRequired,
+	  checkView: _react2.default.PropTypes.func.isRequired
 	};
 	exports.default = Library;
 
@@ -30344,7 +30794,7 @@
 
 	      return _react2.default.createElement(
 	        'li',
-	        null,
+	        { className: 'Library-Item' },
 	        _react2.default.createElement(
 	          'h3',
 	          null,
@@ -30356,7 +30806,7 @@
 	          'Composed by: ' + this.props.composedBy
 	        ),
 	        _react2.default.createElement(
-	          'div',
+	          'ul',
 	          null,
 	          layerSet
 	        ),
@@ -30397,7 +30847,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 255 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -30408,15 +30858,15 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var arrayMap = __webpack_require__(256),
-	    baseEach = __webpack_require__(257),
-	    baseFlatten = __webpack_require__(259),
-	    baseIsEqual = __webpack_require__(260),
-	    baseIsMatch = __webpack_require__(264),
-	    get = __webpack_require__(265),
-	    hasIn = __webpack_require__(266),
-	    rest = __webpack_require__(268),
-	    toPairs = __webpack_require__(269);
+	var arrayMap = __webpack_require__(262),
+	    baseEach = __webpack_require__(263),
+	    baseFlatten = __webpack_require__(265),
+	    baseIsEqual = __webpack_require__(266),
+	    baseIsMatch = __webpack_require__(270),
+	    get = __webpack_require__(271),
+	    hasIn = __webpack_require__(272),
+	    rest = __webpack_require__(274),
+	    toPairs = __webpack_require__(275);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var UNORDERED_COMPARE_FLAG = 1,
@@ -31180,7 +31630,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 256 */
+/* 262 */
 /***/ function(module, exports) {
 
 	/**
@@ -31216,7 +31666,7 @@
 
 
 /***/ },
-/* 257 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -31227,7 +31677,7 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var keys = __webpack_require__(258);
+	var keys = __webpack_require__(264);
 
 	/** Used as references for various `Number` constants. */
 	var MAX_SAFE_INTEGER = 9007199254740991;
@@ -31476,7 +31926,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 258 */
+/* 264 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -31922,7 +32372,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 259 */
+/* 265 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -32253,7 +32703,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 260 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -32264,8 +32714,8 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var Stack = __webpack_require__(261),
-	    keys = __webpack_require__(263);
+	var Stack = __webpack_require__(267),
+	    keys = __webpack_require__(269);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var UNORDERED_COMPARE_FLAG = 1,
@@ -32967,7 +33417,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 261 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -32978,7 +33428,7 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var MapCache = __webpack_require__(262);
+	var MapCache = __webpack_require__(268);
 
 	/** Used as the size to enable large array optimizations. */
 	var LARGE_ARRAY_SIZE = 200;
@@ -33223,7 +33673,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 262 */
+/* 268 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -33723,7 +34173,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 263 */
+/* 269 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -34169,7 +34619,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 264 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -34180,8 +34630,8 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var Stack = __webpack_require__(261),
-	    baseIsEqual = __webpack_require__(260);
+	var Stack = __webpack_require__(267),
+	    baseIsEqual = __webpack_require__(266);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var UNORDERED_COMPARE_FLAG = 1,
@@ -34241,7 +34691,7 @@
 
 
 /***/ },
-/* 265 */
+/* 271 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -34489,7 +34939,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 266 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -34500,8 +34950,8 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var baseSlice = __webpack_require__(267),
-	    get = __webpack_require__(265);
+	var baseSlice = __webpack_require__(273),
+	    get = __webpack_require__(271);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0,
@@ -35021,7 +35471,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 267 */
+/* 273 */
 /***/ function(module, exports) {
 
 	/**
@@ -35067,7 +35517,7 @@
 
 
 /***/ },
-/* 268 */
+/* 274 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -35323,7 +35773,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 269 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -35334,8 +35784,8 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var arrayMap = __webpack_require__(256),
-	    keys = __webpack_require__(270);
+	var arrayMap = __webpack_require__(262),
+	    keys = __webpack_require__(276);
 
 	/**
 	 * The base implementation of `_.toPairs` and `_.toPairsIn` which creates an array
@@ -35380,7 +35830,7 @@
 
 
 /***/ },
-/* 270 */
+/* 276 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -35826,7 +36276,47 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 271 */
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(278);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(278, function() {
+				var newContent = __webpack_require__(278);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".Library-Panel {\n  margin: 8px;\n  height: calc(100vh - 128px);\n  overflow: scroll;\n}\n.Library-Item {\n  width: 100%;\n  font-size: 20px;\n  color: #fff;\n  border-bottom: 1px solid #410287;\n  padding: 13px 10px;\n  display: flex;\n  flex-direction: column;\n  list-style-type: none;\n}\n.Library-Item h3,\n.Library-Item h6,\n.Library-Item ul {\n  margin: 0;\n  padding: 0;\n}\n.Library-Item ul {\n  list-style-type: none;\n  display: flex;\n  padding: 1em;\n  justify-content: center;\n}\n.Library-Item ul li {\n  border-radius: 50%;\n  background-color: #ef49b7;\n  padding: 1rem;\n  height: 5rem;\n  width: 5rem;\n  text-align: center;\n  margin: 0 1rem;\n}\n.Track-Tags > strong {\n  margin-right: 0.4em;\n}\n.Track-Tags > span {\n  padding: 6px 13px;\n  font-size: 12px;\n  max-width: 278px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  margin: 0 5px 5px 0;\n  background: #fff;\n  border: 1px solid #eee;\n  border-radius: 20px;\n  display: inline-block;\n  color: #666;\n  vertical-align: middle;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(77), RootInstanceProvider = __webpack_require__(85), ReactMount = __webpack_require__(87), React = __webpack_require__(139); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -35845,15 +36335,21 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _bubble = __webpack_require__(253);
+	var _bubble = __webpack_require__(257);
 
 	var _bubble2 = _interopRequireDefault(_bubble);
 
 	var _AppConstants = __webpack_require__(247);
 
-	var _lodash = __webpack_require__(272);
+	var _lodash = __webpack_require__(280);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _classnames = __webpack_require__(246);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	__webpack_require__(281);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35884,7 +36380,8 @@
 
 	    _this.state = {
 	      outer: shuffledList(_AppConstants.sampleNames.length),
-	      inner: shuffledList(_AppConstants.bubbleSizes.length)
+	      inner: shuffledList(_AppConstants.bubbleSizes.length),
+	      hideMe: false
 	    };
 	    _this.shuffleBubbles = _this.shuffleBubbles.bind(_this);
 	    return _this;
@@ -35899,12 +36396,22 @@
 	      });
 	    }
 	  }, {
-	    key: 'render',
-	    value: function render() {
+	    key: 'handleClick',
+	    value: function handleClick() {
 	      var _this2 = this;
 
+	      this.setState({ hideMe: true });
+	      this.refs.MixingComponent.addEventListener('transitionend', function () {
+	        _this2.props.checkView('compose');
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this3 = this;
+
 	      var basket = (0, _lodash2.default)(this.state.outer, function (idx) {
-	        return _this2.props.layers[idx] > 0;
+	        return _this3.props.layers[idx] > 0;
 	      });
 	      basket = basket[0].concat(basket[1]);
 	      basket = this.state.inner.map(function (idx) {
@@ -35913,31 +36420,49 @@
 	      basket = basket.map(function (sampleID, idx) {
 	        var bubbleProps = {
 	          sampleID: sampleID,
-	          volume: _this2.props.layers[sampleID],
+	          volume: _this3.props.layers[sampleID],
 	          size: _AppConstants.bubbleSizes[idx],
 	          active: true,
-	          volumeUp: _this2.props.volumeUp
+	          volumeUp: _this3.props.volumeUp
 	        };
 	        return _react2.default.createElement(_bubble2.default, _extends({ key: sampleID }, bubbleProps));
 	      });
 
+	      var mixingPanelClasses = (0, _classnames2.default)({
+	        'Mixing-panel': true,
+	        'Mixing-panel-hidden': this.state.hideMe
+	      });
+
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: mixingPanelClasses, ref: 'MixingComponent' },
 	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          'Be creative'
+	          'header',
+	          { className: 'Mixing-header', onClick: this.handleClick.bind(this) },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Save'
+	          )
 	        ),
 	        _react2.default.createElement(
-	          'div',
-	          null,
-	          basket
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: this.shuffleBubbles },
-	          'Shuffle'
+	          'section',
+	          { className: 'Mixing-section' },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Be creative'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'Mixing-bubbleList' },
+	            basket
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.shuffleBubbles },
+	            'Shuffle'
+	          )
 	        )
 	      );
 	    }
@@ -35948,7 +36473,9 @@
 
 	MixingRoom.propTypes = {
 	  layers: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.number).isRequired,
-	  volumeUp: _react2.default.PropTypes.func.isRequired
+	  volumeUp: _react2.default.PropTypes.func.isRequired,
+	  checkView: _react2.default.PropTypes.func.isRequired,
+	  style: _react2.default.PropTypes.object
 	};
 	exports.default = MixingRoom;
 
@@ -35956,7 +36483,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 272 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -35967,12 +36494,12 @@
 	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var baseEach = __webpack_require__(257),
-	    baseIsEqual = __webpack_require__(260),
-	    baseIsMatch = __webpack_require__(264),
-	    get = __webpack_require__(265),
-	    hasIn = __webpack_require__(266),
-	    toPairs = __webpack_require__(269);
+	var baseEach = __webpack_require__(263),
+	    baseIsEqual = __webpack_require__(266),
+	    baseIsMatch = __webpack_require__(270),
+	    get = __webpack_require__(271),
+	    hasIn = __webpack_require__(272),
+	    toPairs = __webpack_require__(275);
 
 	/** Used to compose bitmasks for comparison styles. */
 	var UNORDERED_COMPARE_FLAG = 1,
@@ -36447,6 +36974,86 @@
 	module.exports = partition;
 
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(282);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(282, function() {
+				var newContent = __webpack_require__(282);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".Mixing-panel {\n  transition: all 400ms cubic-bezier(0.175, 0.885, 0.335, 1.05);\n  z-index: 9;\n}\n.Mixing-panel-hidden {\n  transform: translate3d(-80%, 0, 0) scale3d(0.65, 0.65, 1);\n  opacity: 0.9;\n}\n.Mixing-header {\n  position: absolute;\n  top: 0;\n  width: 100vw;\n}\n.Mixing-header h1 {\n  float: right;\n  margin: 0;\n  padding: 0.8rem 1rem;\n  font-weight: 300;\n  font-size: 1em;\n}\n.Mixing-section {\n  background-color: #000;\n  margin: 8px;\n  height: calc(100vh - 128px);\n  overflow: hidden;\n}\n.Mixing-bubbleList {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(284);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(255)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(284, function() {
+				var newContent = __webpack_require__(284);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(254)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "body {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n  width: 100vw;\n  color: #fff;\n  font-family: 'Open Sans';\n}\n.MobileContainer {\n  width: 100vw;\n  height: 100vh;\n  margin: 0 auto;\n  overflow: scroll;\n  position: absolute;\n  top: 0;\n  left: 0;\n  background-color: #000;\n}\nbutton {\n  background: transparent;\n  border-radius: 10px;\n  border: 1px solid #fff;\n  color: #fff;\n  padding: 1rem;\n  margin-right: 1rem;\n  padding-bottom: 2rem;\n}\n", ""]);
+
+	// exports
+
 
 /***/ }
 /******/ ]);

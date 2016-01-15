@@ -9,21 +9,21 @@ import './main.styl'
 const collection = [
   {
     trackID: 1,
-    title: 'Hello',
-    composedBy: 'Anon',
+    title: 'Space Oddity',
+    composedBy: 'David Bowie',
     layers: [0, 3, 3, 3, 0, 0, 0, 0, 0, 0],
-    tags: ['Nature', 'Sea'],
+    tags: ['New Age'],
     timesPlayed: 10
   }, {
     trackID: 2,
-    title: 'World',
+    title: 'Hello',
     composedBy: 'yongjun21',
     layers: [0, 2, 0, 3, 0, 4, 0, 0, 0, 0],
-    tags: ['New age'],
+    tags: ['Nature', 'Sea'],
     timesPlayed: 99
   }, {
     trackID: 3,
-    title: 'Happy birthday',
+    title: 'Happy Birthday',
     composedBy: 'Jared Tong',
     layers: [0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
     tags: ['Urban', 'White noise'],

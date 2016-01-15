@@ -5,3 +5,6 @@ node_modules
 
 bundle.js
 *.orig
+
+/ui-sounds/
+/samples/
