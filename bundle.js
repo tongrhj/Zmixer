@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "dfebae99dbb3b204ca3a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "523b389901b92065ccaf"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -28050,10 +28050,31 @@
 	      var selectedSampleID = +event.target.value;
 	      if (this.state.layers[selectedSampleID] === 4) {
 	        this.state.layers[selectedSampleID] = 0;
+	        this.playSound('close');
+	      } else if (this.state.layers[selectedSampleID === 0]) {
+	        this.state.layers[selectedSampleID]++;
+	        this.playSound('open');
 	      } else {
 	        this.state.layers[selectedSampleID]++;
+	        this.playSound('volume');
 	      }
 	      this.forceUpdate();
+	    }
+	  }, {
+	    key: 'playSound',
+	    value: function playSound(type) {
+	      var isSafari = navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1;
+	      if (!isSafari) {
+	        var audio = undefined;
+	        if (type === 'open') {
+	          audio = new Audio('./assets/ui-sounds/open-bubble.mp3');
+	        } else if (type === 'volume') {
+	          audio = new Audio('./assets/ui-sounds/single-bubble.mp3');
+	        } else if (type === 'close') {
+	          audio = new Audio('./assets/ui-sounds/close-bubble.mp3');
+	        }
+	        audio.play();
+	      }
 	    }
 	  }, {
 	    key: 'loadTrack',
@@ -28382,7 +28403,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var tagNames = exports.tagNames = ['Nature', 'Urban', 'Sea', 'Weather', 'Instrumental', 'Vocal', 'New age', 'White noise'];
+	var tagNames = exports.tagNames = ['Nature', 'Urban', 'Sea', 'Weather', 'Instrumental', 'Vocal', 'New Age', 'White noise'];
 
 	var sampleNames = exports.sampleNames = ['Rain', 'Thunder', 'Waves', 'Wind', 'Fire', 'Birds', 'Crickets', 'Coffee shop', 'Singing bowl', 'White noise'];
 
@@ -30389,7 +30410,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'Compose-Panel' },
 	        _react2.default.createElement(
 	          'h2',
 	          null,
@@ -30582,7 +30603,7 @@
 
 
 	// module
-	exports.push([module.id, ".Compose-Panel {\n  position: absolute;\n  top: 0;\n  z-index: 0;\n  background-color: #000;\n  height: calc(100vh - 152px);\n  width: 100vw;\n  padding: 8px;\n  display: flex;\n  flex-direction: column;\n  overflow: scroll;\n}\n.Compose-TagList {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n}\n.Compose-Panel-hidden {\n  display: none;\n}\n", ""]);
+	exports.push([module.id, ".Compose-Panel {\n  position: absolute;\n  top: 0;\n  z-index: 0;\n  background-color: #000;\n  height: calc(100vh - 152px);\n  width: 100vw;\n  padding: 8px;\n  display: flex;\n  flex-direction: column;\n  overflow: scroll;\n}\n.Compose-TagList {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-around;\n}\n", ""]);
 
 	// exports
 
@@ -30812,8 +30833,12 @@
 	        ),
 	        _react2.default.createElement(
 	          'label',
-	          null,
-	          'Tags:',
+	          { className: 'Track-Tags' },
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            'Tags:'
+	          ),
 	          tagSet
 	        ),
 	        _react2.default.createElement(
@@ -36310,7 +36335,7 @@
 
 
 	// module
-	exports.push([module.id, ".Library-Panel {\n  margin: 8px;\n  height: calc(100vh - 128px);\n  overflow: scroll;\n}\n.Library-Item {\n  width: 100%;\n  font-size: 20px;\n  color: #fff;\n  border-bottom: 1px solid #410287;\n  padding: 13px 10px;\n  display: flex;\n  flex-direction: column;\n  list-style-type: none;\n}\n.Library-Item h3,\n.Library-Item h6,\n.Library-Item ul {\n  margin: 0;\n  padding: 0;\n}\n.Library-Item ul {\n  list-style-type: none;\n  display: flex;\n  padding: 1em;\n  justify-content: center;\n}\n.Library-Item ul li {\n  border-radius: 50%;\n  background-color: #ef49b7;\n  padding: 1rem;\n  height: 5rem;\n  width: 5rem;\n  text-align: center;\n  margin: 0 1rem;\n}\n.Track-Tags > strong {\n  margin-right: 0.4em;\n}\n.Track-Tags > span {\n  padding: 6px 13px;\n  font-size: 12px;\n  max-width: 278px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  margin: 0 5px 5px 0;\n  background: #fff;\n  border: 1px solid #eee;\n  border-radius: 20px;\n  display: inline-block;\n  color: #666;\n  vertical-align: middle;\n}\n", ""]);
+	exports.push([module.id, ".Library-Panel {\n  margin: 8px;\n  height: calc(100vh - 152px);\n  overflow: scroll;\n  display: flex;\n  flex-direction: column;\n}\n.Library-Panel ul {\n  margin: 0;\n  padding: 0;\n}\n.Library-Item {\n  width: 100%;\n  font-size: 20px;\n  color: #fff;\n  border-bottom: 1px solid #410287;\n  padding: 13px 10px;\n  display: flex;\n  flex-direction: column;\n  list-style-type: none;\n}\n.Library-Item h3,\n.Library-Item h6,\n.Library-Item ul {\n  margin: 0;\n  padding: 0;\n}\n.Library-Item ul {\n  list-style-type: none;\n  display: flex;\n  padding: 1em;\n  justify-content: center;\n}\n.Library-Item ul li {\n  border-radius: 50%;\n  background-color: #ef49b7;\n  padding: 1rem;\n  height: 5rem;\n  width: 5rem;\n  text-align: center;\n  margin: 0 1rem;\n}\n.Track-Tags > strong {\n  margin-right: 0.4em;\n}\n.Track-Tags > span {\n  padding: 6px 13px;\n  font-size: 12px;\n  max-width: 278px;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  margin: 0 5px 5px 0;\n  background: #fff;\n  border: 1px solid #eee;\n  border-radius: 20px;\n  display: inline-block;\n  color: #666;\n  vertical-align: middle;\n}\n", ""]);
 
 	// exports
 
