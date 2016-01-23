@@ -5,13 +5,7 @@ import {tagNames} from '../helpers'
 
 const tagState = {}
 
-<<<<<<< HEAD:components/compose.jsx
-import './compose.styl'
-
-export default class Compose extends React.Component {
-=======
 export default class Upload extends React.Component {
->>>>>>> yongjun21/master:components/upload/index.jsx
   static propTypes = {
     userID: React.PropTypes.string,
     title: React.PropTypes.string,
@@ -60,11 +54,6 @@ export default class Upload extends React.Component {
     }
     if (!newData.tags.length) newData.tags.push('No tag')
     this.props.uploadHandler(newData)
-	this.switchViews()
-  }
-
-  switchViews () {
-    this.props.checkView('library')
   }
 
   render () {
@@ -94,14 +83,10 @@ export default class Upload extends React.Component {
     })
 
     return (
-<<<<<<< HEAD:components/compose.jsx
-      <div className='Compose-Panel'>
-=======
       <section>
->>>>>>> yongjun21/master:components/upload/index.jsx
         <h2>Great work!</h2>
         <h3>Here's your track</h3>
-        <ul>{layersChosen}</ul>
+        <div>{layersChosen}</div>
         <h3>One more step</h3>
         <label>Title:
           <input

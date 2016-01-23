@@ -88,12 +88,8 @@ export default class Player extends React.Component {
       (this.state.countdown % 60 < 10 ? '0' : '') + this.state.countdown % 60
 
     return (
-<<<<<<< HEAD:components/player.jsx
-      <div className='Player'>
-=======
       <section>
         <h3>{this.props.title || 'Untitled'}</h3>
->>>>>>> yongjun21/master:components/player/index.jsx
         <button {...playButtonProps} />
         <h3>{this.props.title || 'Untitled'}</h3>
         <button {...timerProps} >{timerDisplay}</button>
