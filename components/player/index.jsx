@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
-import {sampleFileNames} from '../helpers/constants'
-import Howler from 'howler'
+import {sampleFileNames} from '../helpers'
+import {Howl} from 'howler'
 
 const soundLibrary = Array(10).fill(null)
 let lastPlayingState = false
@@ -10,10 +10,10 @@ import './player.styl'
 
 export default class Player extends React.Component {
   static propTypes = {
-    title: React.PropTypes.string.isRequired,
-    playing: React.PropTypes.bool.isRequired,
-    layers: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
-    togglePlay: React.PropTypes.func.isRequired
+    title: React.PropTypes.string,
+    playing: React.PropTypes.bool,
+    layers: React.PropTypes.arrayOf(React.PropTypes.number),
+    togglePlay: React.PropTypes.func
   };
 
   constructor (props) {
@@ -54,7 +54,7 @@ export default class Player extends React.Component {
           if (this.props.playing && !lastPlayingState) soundLibrary[idx].play()
           else if (!this.props.playing && lastPlayingState) soundLibrary[idx].pause()
         } else {
-          soundLibrary[idx] = new Howler.Howl({
+          soundLibrary[idx] = new Howl({
             urls: ['../../assets/audio/' + sampleFileNames[idx] + '.mp4'],
             loop: true,
             volume: 0.3 * layer
@@ -88,12 +88,16 @@ export default class Player extends React.Component {
       (this.state.countdown % 60 < 10 ? '0' : '') + this.state.countdown % 60
 
     return (
+<<<<<<< HEAD:components/player.jsx
       <div className='Player'>
+=======
+      <section>
+        <h3>{this.props.title || 'Untitled'}</h3>
+>>>>>>> yongjun21/master:components/player/index.jsx
         <button {...playButtonProps} />
         <h3>{this.props.title || 'Untitled'}</h3>
         <button {...timerProps} >{timerDisplay}</button>
-      </div>
+      </section>
     )
   }
-
 }

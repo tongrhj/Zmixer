@@ -1,25 +1,32 @@
 import React from 'react'
-import SoundBubble from './bubble'
-import {tagNames} from '../helpers/constants'
+import {Link} from 'react-router'
+import SoundBubble from '../bubble'
+import {tagNames} from '../helpers'
 
 const tagState = {}
 
+<<<<<<< HEAD:components/compose.jsx
 import './compose.styl'
 
 export default class Compose extends React.Component {
+=======
+export default class Upload extends React.Component {
+>>>>>>> yongjun21/master:components/upload/index.jsx
   static propTypes = {
-    composedBy: React.PropTypes.string.isRequired,
-    layers: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
-    uploadHandler: React.PropTypes.func.isRequired
+    userID: React.PropTypes.string,
+    title: React.PropTypes.string,
+    tags: React.PropTypes.arrayOf(React.PropTypes.string),
+    layers: React.PropTypes.arrayOf(React.PropTypes.number),
+    uploadHandler: React.PropTypes.func
   };
 
   constructor (props) {
     super(props)
 
-    tagNames.forEach(tag => tagState[tag] = false)
+    tagNames.forEach(tag => tagState[tag] = this.props.tags.indexOf(tag) > -1)
 
     this.state = {
-      title: '',
+      title: this.props.title,
       tagState: tagState
     }
 
@@ -87,7 +94,11 @@ export default class Compose extends React.Component {
     })
 
     return (
+<<<<<<< HEAD:components/compose.jsx
       <div className='Compose-Panel'>
+=======
+      <section>
+>>>>>>> yongjun21/master:components/upload/index.jsx
         <h2>Great work!</h2>
         <h3>Here's your track</h3>
         <ul>{layersChosen}</ul>
@@ -104,12 +115,13 @@ export default class Compose extends React.Component {
         <label>Composed by:
           <input
             type='text'
-            value={this.props.composedBy}
+            value={this.props.userID}
             readOnly={true} />
         </label>
         <label>Select tags:{tagList}</label>
+        <Link to='/compose'>Back</Link>
         <button onClick={this.uploadData} >Add to library</button>
-      </div>
+      </section>
     )
   }
 }
